@@ -29,12 +29,54 @@ export default function Dashboard() {
     navigate('/signin');
   }
 
+  const fullName = user?.user_metadata?.full_name;
+  const phone = user?.user_metadata?.phone;
+  const initial = (fullName || user?.email || '?').charAt(0).toUpperCase();
+
   return (
-    <div className="dashboard">
-      <h1>Dashboard</h1>
-      {error && <p className="error">{error}</p>}
-      {user && <p>Signed in as <strong>{user.email}</strong></p>}
-      <button onClick={handleSignOut}>Sign out</button>
+    <div className="dashboard-page">
+      <nav className="topbar">
+        <div className="topbar-brand">
+          <div className="brand-mark small">A</div>
+          <span>My App</span>
+        </div>
+        <button className="ghost-btn" onClick={handleSignOut}>Sign out</button>
+      </nav>
+
+      <div className="dashboard-content">
+        <div className="profile-card">
+          <div className="avatar">{initial}</div>
+          <h1>Welcome{fullName ? `, ${fullName.split(' ')[0]}` : ''}</h1>
+          <p className="dashboard-subtitle">Here's your account overview</p>
+
+          {error && <div className="alert alert-error">{error}</div>}
+
+          {user && (
+            <div className="info-grid">
+              <div className="info-item">
+                <span className="info-label">Email</span>
+                <span className="info-value">{user.email}</span>
+              </div>
+              {fullName && (
+                <div className="info-item">
+                  <span className="info-label">Full name</span>
+                  <span className="info-value">{fullName}</span>
+                </div>
+              )}
+              {phone && (
+                <div className="info-item">
+                  <span className="info-label">Phone</span>
+                  <span className="info-value">{phone}</span>
+                </div>
+              )}
+              <div className="info-item">
+                <span className="info-label">User ID</span>
+                <span className="info-value mono">{user.id}</span>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

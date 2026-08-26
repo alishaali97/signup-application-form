@@ -27,19 +27,48 @@ export default function SignIn() {
   }
 
   return (
-    <div className="auth-page">
-      <form className="auth-card" onSubmit={handleSubmit}>
-        <h1>Sign in</h1>
-        {error && <p className="error">{error}</p>}
-        <label>Email
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </label>
-        <label>Password
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </label>
-        <button type="submit" disabled={loading}>{loading ? 'Signing in...' : 'Sign in'}</button>
-        <p>No account? <Link to="/signup">Sign up</Link></p>
-      </form>
+    <div className="split-page">
+      <div className="brand-panel">
+        <div className="brand-content">
+          <div className="brand-mark">A</div>
+          <h2>Welcome back</h2>
+          <p>Sign in to continue to your dashboard and pick up right where you left off.</p>
+          <ul className="brand-points">
+            <li>Secure, encrypted authentication</li>
+            <li>Your session, your data</li>
+            <li>One click sign out, anytime</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="form-panel">
+        <form className="form-card" onSubmit={handleSubmit}>
+          <h1>Sign in</h1>
+          <p className="form-subtitle">Enter your credentials to continue</p>
+
+          {error && <div className="alert alert-error">{error}</div>}
+
+          <div className="field-row">
+            <label>
+              Email address
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
+            </label>
+          </div>
+
+          <div className="field-row">
+            <label>
+              Password
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </label>
+          </div>
+
+          <button type="submit" className="primary-btn" disabled={loading}>
+            {loading ? 'Signing in...' : 'Sign in'}
+          </button>
+
+          <p className="switch-link">No account? <Link to="/signup">Create one</Link></p>
+        </form>
+      </div>
     </div>
   );
 }
