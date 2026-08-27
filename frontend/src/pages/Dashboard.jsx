@@ -34,48 +34,42 @@ export default function Dashboard() {
   const initial = (fullName || user?.email || '?').charAt(0).toUpperCase();
 
   return (
-    <div className="dashboard-page">
-      <nav className="topbar">
-        <div className="topbar-brand">
-          <div className="brand-mark small">A</div>
-          <span>My App</span>
+    <div className="glass-page">
+      <div className="glass-orb orb-1" />
+      <div className="glass-orb orb-2" />
+      <div className="glass-orb orb-3" />
+
+      <div className="glass-dashboard">
+        <div className="glass-avatar-ring">
+          <div className="glass-avatar">{initial}</div>
         </div>
-        <button className="ghost-btn" onClick={handleSignOut}>Sign out</button>
-      </nav>
+        <h1>Welcome{fullName ? `, ${fullName.split(' ')[0]}` : ''}</h1>
+        <p className="glass-subtitle">You're signed in</p>
 
-      <div className="dashboard-content">
-        <div className="profile-card">
-          <div className="avatar">{initial}</div>
-          <h1>Welcome{fullName ? `, ${fullName.split(' ')[0]}` : ''}</h1>
-          <p className="dashboard-subtitle">Here's your account overview</p>
+        {error && <div className="glass-alert glass-alert-error">{error}</div>}
 
-          {error && <div className="alert alert-error">{error}</div>}
-
-          {user && (
-            <div className="info-grid">
-              <div className="info-item">
-                <span className="info-label">Email</span>
-                <span className="info-value">{user.email}</span>
-              </div>
-              {fullName && (
-                <div className="info-item">
-                  <span className="info-label">Full name</span>
-                  <span className="info-value">{fullName}</span>
-                </div>
-              )}
-              {phone && (
-                <div className="info-item">
-                  <span className="info-label">Phone</span>
-                  <span className="info-value">{phone}</span>
-                </div>
-              )}
-              <div className="info-item">
-                <span className="info-label">User ID</span>
-                <span className="info-value mono">{user.id}</span>
-              </div>
+        {user && (
+          <div className="glass-detail-list">
+            <div className="glass-detail-row">
+              <span className="glass-detail-label">Email</span>
+              <span className="glass-detail-value">{user.email}</span>
             </div>
-          )}
-        </div>
+            {fullName && (
+              <div className="glass-detail-row">
+                <span className="glass-detail-label">Full name</span>
+                <span className="glass-detail-value">{fullName}</span>
+              </div>
+            )}
+            {phone && (
+              <div className="glass-detail-row">
+                <span className="glass-detail-label">Phone</span>
+                <span className="glass-detail-value">{phone}</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        <button className="glass-btn glass-btn-outline" onClick={handleSignOut}>Sign out</button>
       </div>
     </div>
   );

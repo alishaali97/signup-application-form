@@ -3,6 +3,19 @@ import { useNavigate, Link } from 'react-router-dom';
 import { signIn } from '../lib/api';
 import { useAuth } from '../lib/AuthContext';
 
+function Icon({ path }) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d={path} />
+    </svg>
+  );
+}
+
+const ICONS = {
+  mail: 'M4 4h16v16H4V4Z M4 6l8 7 8-7',
+  lock: 'M5 11h14v10H5V11Z M8 11V7a4 4 0 0 1 8 0v4',
+};
+
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,47 +40,35 @@ export default function SignIn() {
   }
 
   return (
-    <div className="split-page">
-      <div className="brand-panel">
-        <div className="brand-content">
-          <div className="brand-mark">A</div>
-          <h2>Welcome back</h2>
-          <p>Sign in to continue to your dashboard and pick up right where you left off.</p>
-          <ul className="brand-points">
-            <li>Secure, encrypted authentication</li>
-            <li>Your session, your data</li>
-            <li>One click sign out, anytime</li>
-          </ul>
-        </div>
-      </div>
+    <div className="glass-page">
+      <div className="glass-orb orb-1" />
+      <div className="glass-orb orb-2" />
+      <div className="glass-orb orb-3" />
 
-      <div className="form-panel">
-        <form className="form-card" onSubmit={handleSubmit}>
-          <h1>Sign in</h1>
-          <p className="form-subtitle">Enter your credentials to continue</p>
+      <div className="glass-card">
+        <div className="glass-logo">◆</div>
+        <h1>Welcome back</h1>
+        <p className="glass-subtitle">Sign in to your account</p>
 
-          {error && <div className="alert alert-error">{error}</div>}
+        {error && <div className="glass-alert glass-alert-error">{error}</div>}
 
-          <div className="field-row">
-            <label>
-              Email address
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
-            </label>
+        <form onSubmit={handleSubmit}>
+          <div className="glass-input">
+            <span className="glass-icon"><Icon path={ICONS.mail} /></span>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" required />
           </div>
 
-          <div className="field-row">
-            <label>
-              Password
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            </label>
+          <div className="glass-input">
+            <span className="glass-icon"><Icon path={ICONS.lock} /></span>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
           </div>
 
-          <button type="submit" className="primary-btn" disabled={loading}>
+          <button type="submit" className="glass-btn" disabled={loading}>
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
-
-          <p className="switch-link">No account? <Link to="/signup">Create one</Link></p>
         </form>
+
+        <p className="glass-switch">No account? <Link to="/signup">Create one</Link></p>
       </div>
     </div>
   );

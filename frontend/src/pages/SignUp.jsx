@@ -2,6 +2,21 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signUp } from '../lib/api';
 
+function Icon({ path }) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d={path} />
+    </svg>
+  );
+}
+
+const ICONS = {
+  user: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z',
+  mail: 'M4 4h16v16H4V4Z M4 6l8 7 8-7',
+  phone: 'M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6.3 6.3l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z',
+  lock: 'M5 11h14v10H5V11Z M8 11V7a4 4 0 0 1 8 0v4',
+};
+
 export default function SignUp() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -35,66 +50,51 @@ export default function SignUp() {
   }
 
   return (
-    <div className="split-page">
-      <div className="brand-panel">
-        <div className="brand-content">
-          <div className="brand-mark">A</div>
-          <h2>Join us today</h2>
-          <p>Create an account to get started. It only takes a minute.</p>
-          <ul className="brand-points">
-            <li>Secure, encrypted authentication</li>
-            <li>Fast and simple sign-up</li>
-            <li>Your data stays private</li>
-          </ul>
-        </div>
-      </div>
+    <div className="glass-page">
+      <div className="glass-orb orb-1" />
+      <div className="glass-orb orb-2" />
+      <div className="glass-orb orb-3" />
 
-      <div className="form-panel">
-        <form className="form-card" onSubmit={handleSubmit}>
-          <h1>Create your account</h1>
-          <p className="form-subtitle">Fill in your details below</p>
+      <div className="glass-card">
+        <div className="glass-logo">◆</div>
+        <h1>Create account</h1>
+        <p className="glass-subtitle">Start your journey with us</p>
 
-          {error && <div className="alert alert-error">{error}</div>}
-          {message && <div className="alert alert-success">{message}</div>}
+        {error && <div className="glass-alert glass-alert-error">{error}</div>}
+        {message && <div className="glass-alert glass-alert-success">{message}</div>}
 
-          <div className="field-row">
-            <label>
-              Full name
-              <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Jane Doe" required />
-            </label>
+        <form onSubmit={handleSubmit}>
+          <div className="glass-input">
+            <span className="glass-icon"><Icon path={ICONS.user} /></span>
+            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Full name" required />
           </div>
 
-          <div className="field-row">
-            <label>
-              Email address
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
-            </label>
+          <div className="glass-input">
+            <span className="glass-icon"><Icon path={ICONS.mail} /></span>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" required />
           </div>
 
-          <div className="field-row">
-            <label>
-              Phone <span className="optional">(optional)</span>
-              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+1 555 000 0000" />
-            </label>
+          <div className="glass-input">
+            <span className="glass-icon"><Icon path={ICONS.phone} /></span>
+            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone (optional)" />
           </div>
 
-          <div className="field-row two-col">
-            <label>
-              Password
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
-            </label>
-            <label>
-              Confirm password
-              <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required minLength={6} />
-            </label>
+          <div className="glass-input">
+            <span className="glass-icon"><Icon path={ICONS.lock} /></span>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required minLength={6} />
           </div>
 
-          <button type="submit" className="primary-btn" disabled={loading}>
-            {loading ? 'Creating account...' : 'Create account'}
+          <div className="glass-input">
+            <span className="glass-icon"><Icon path={ICONS.lock} /></span>
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm password" required minLength={6} />
+          </div>
+
+          <button type="submit" className="glass-btn" disabled={loading}>
+            {loading ? 'Creating account...' : 'Sign up'}
           </button>
-
-          <p className="switch-link">Already have an account? <Link to="/signin">Sign in</Link></p>
         </form>
+
+        <p className="glass-switch">Already have an account? <Link to="/signin">Sign in</Link></p>
       </div>
     </div>
   );
