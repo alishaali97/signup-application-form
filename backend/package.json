@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "jest --colors",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
@@ -14,6 +16,9 @@
     "express": "^4.19.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "eslint": "^8.57.0"
   }
 }

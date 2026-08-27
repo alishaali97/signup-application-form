@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signUp } from '../lib/api';
+import { passwordsMatch } from '../lib/validators';
 
 function Icon({ path }) {
   return (
@@ -32,7 +33,7 @@ export default function SignUp() {
     e.preventDefault();
     setError('');
 
-    if (password !== confirmPassword) {
+    if (!passwordsMatch(password, confirmPassword)) {
       setError("Passwords don't match");
       return;
     }
